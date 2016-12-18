@@ -44,8 +44,9 @@ public class Device {
                     recvCount++;
                     if (recvCount == 3) {
                         byte[] data = "JOIN".getBytes();
+                        // 此时 packet 包含了发送者地址和监听端口
                         DatagramPacket respMsg = new DatagramPacket(
-                                data, data.length, packet.getSocketAddress()); // 此时 packet 包含了发送者地址和监听端口
+                                data, data.length, packet.getSocketAddress());
                         try {
                             socket.send(respMsg);
                             System.out.println("Device: Sent response 'JOIN'");

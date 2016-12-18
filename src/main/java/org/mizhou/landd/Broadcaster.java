@@ -7,7 +7,6 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.SocketException;
 
-
 public class Broadcaster {
 
     private static final int DEFAULT_BROADCAST_PORT = 10000;
@@ -59,10 +58,22 @@ public class Broadcaster {
         senderThread.start();
         recverThread.start();
 
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                close();
+                System.out.println("Broadcaster has been closed.");
+            }
+        }));
+
+        /*
         senderThread.join();
         recverThread.join();
 
         close();
+        
+        System.out.println("Broadcaster has been closed.");
+        */
     }
 
     public void close() {
@@ -79,7 +90,8 @@ public class Broadcaster {
             Broadcaster broadcaster = new Broadcaster(bcAddr, DEFAULT_BROADCAST_PORT);
             broadcaster.start();
         } else {
-            System.out.println("Please check your LAN or Operating System(LANAddressTool can only get LAN address on Windows so far).");
+            System.out.println("Please check your LAN or Operating System"
+                    + "(LANAddressTool can only get LAN address on Windows so far).");
         }
     }
 }
