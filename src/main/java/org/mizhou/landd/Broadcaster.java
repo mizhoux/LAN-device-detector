@@ -21,6 +21,12 @@ public class Broadcaster {
         this.bcPort = broadcastPort;
     }
 
+    /**
+     * 启动 Broadcaster
+     *
+     * @throws SocketException
+     * @throws InterruptedException
+     */
     public void start() throws SocketException, InterruptedException {
         System.out.println("Broadcaster has been started...");
 
@@ -58,6 +64,7 @@ public class Broadcaster {
         senderThread.start();
         recverThread.start();
 
+        // 在命令行中使用 Ctrl+C 终止 JVM 进程时，会调用 ShutdownHook
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,14 +73,6 @@ public class Broadcaster {
             }
         }));
 
-        /*
-        senderThread.join();
-        recverThread.join();
-
-        close();
-        
-        System.out.println("Broadcaster has been closed.");
-        */
     }
 
     public void close() {

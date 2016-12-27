@@ -10,13 +10,13 @@ public class Sender implements Runnable {
     private static final byte[] EMPTY_DATA = new byte[0];
 
     private final DatagramSocket socket;
-    private final SocketAddress broadcastAddress;
-    private final long sendingInterval; // unit is ms
+    private final SocketAddress bcAddr;
+    private final long sendingInterval; // 发送间隔，单位为 毫秒
 
     public Sender(DatagramSocket socket,
             SocketAddress broadcastAddress, int sendingInterval) {
         this.socket = socket;
-        this.broadcastAddress = broadcastAddress;
+        this.bcAddr = broadcastAddress;
         this.sendingInterval = sendingInterval;
     }
 
@@ -28,8 +28,8 @@ public class Sender implements Runnable {
                 break;
             }
 
-            DatagramPacket outPacket = new DatagramPacket(
-                    data, data.length, broadcastAddress);
+            DatagramPacket outPacket = new DatagramPacket(data, data.length, bcAddr);
+            
             try {
                 socket.send(outPacket);
                 System.out.println("Sender: Data has been sent");

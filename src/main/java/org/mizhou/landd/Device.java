@@ -25,6 +25,12 @@ public class Device {
         this.port = port;
     }
 
+    /**
+     * 启动 Device
+     *
+     * @throws SocketException
+     * @throws InterruptedException
+     */
     public void start() throws SocketException, InterruptedException {
         System.out.println("Device has been started...");
         InetAddress lanAddr = LANAddressTool.getLANAddressOnWindows();

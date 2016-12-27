@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 
 public class Receiver implements Runnable {
 
-    private final int BUF_SIZE = 512;
+    private static final int BUF_SIZE = 512;
 
     private final DatagramSocket socket;
 
